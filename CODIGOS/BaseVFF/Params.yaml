@@ -1,0 +1,23 @@
+imageType:
+  Original: {} # Original image (Vertebral Body)
+  LoG:          # Laplacian of Gaussian Variations
+    sigma: [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0] # Sigma values
+  Wavelet: {} # Wavelets Variations 
+
+featureClass: # https://pyradiomics.readthedocs.io/en/latest/features.html
+  firstorder:   # Statisticcal first order features (19 features)
+  glcm:         # Grey level co-occurrence matrices (24 features)
+  gldm:         # Gray Level Dependence Matrix (14 features)
+  glrlm:        # Grey-level run length matrix (16 features)
+  glszm:        # Gray level size zone matrix (16 features)
+  ngtdm:        # Neighbouring Gray Tone Difference (5 features)
+  shape:        # Shape features (19 features) (16 features)
+                # TOTAL: 110 features
+
+setting:
+  preCrop: true                    # CROP VOI TO REDUCE PROCESSING TIME
+  resampledPixelSpacing: [1, 1, 1] # ISOTROPIC VOXEL SPACING NORMALIZATION
+  binWidth: 64                     # NUMBER OF BINS FO STOGRRAM CALCULATIONS
+  voxelArrayShift: 300             # TO AVOID NEGATIVE VALUES
+
+  
