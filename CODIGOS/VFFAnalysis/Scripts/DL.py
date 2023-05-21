@@ -51,7 +51,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = "0"
 #base_path_parts = "../Datasets/DatasetBalanced2/Partitions/"
 
 # 05 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100
-subset = "35"
+subset = "40"
 save_metrics_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs\\"
 save_csvs_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs\\"
 save_nets_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\nets\\"
