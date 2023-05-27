@@ -27,6 +27,7 @@ from tensorflow.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
 from sklearn.metrics import roc_curve, auc, roc_auc_score, confusion_matrix
 from tensorflow.keras.models import load_model
 
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -42,7 +43,7 @@ tf.config.list_physical_devices('GPU')
 
 import os
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
-os.environ['CUDA_VISIBLE_DEVICES'] = "0"
+os.environ['CUDA_VISIBLE_DEVICES'] = "1"
 
 ##Variaveis globais
 #save_metrics_path = "../Datasets/DatasetBalanced2/Results/csvs/"
@@ -51,14 +52,8 @@ os.environ['CUDA_VISIBLE_DEVICES'] = "0"
 #base_path_parts = "../Datasets/DatasetBalanced2/Partitions/"
 
 # 05 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100
-subset = "40"
-save_metrics_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs\\"
-save_csvs_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs\\"
-save_nets_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\nets\\"
-# base_path_parts = "C:\\PIBIC\\2022-2023\\Datasets\\05\\Partitions\\"
-base_path_parts = f"C:\\PIBIC\\2022-2023\\Datasets\\{subset}\\Partitions"
+subsets = ["05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100"]
 
-files_parts = os.listdir(base_path_parts)
 runtimeTrain = 0.0
 runtimeTest = 0.0
 
@@ -82,13 +77,13 @@ runtimeTest = 0.0
 # 'ResNet152V2':    Dense 128    Dropout 0.1  Freeze 0.3
 # 'DenseNet201':    Dense 128    Dropout 0.1  Freeze 0.3
 # 'MobileNetV2':    Dense 128    Dropout 0.1  Freeze 0.3
-methodsNames = ['DenseNet201'] 
+methodsNames = ['MobileNet'] 
 # 'VGG16', 'VGG19', 'ResNet50', 'ResNet50V2', 'ResNet101', 'ResNet101V2', 'ResNet152', 'ResNet152V2', 'DenseNet201', 'Xception', 'EfficientNetB4'
 
 # DONE: 'MobileNet'
 
 ##Parametros da CNNs
-batch_size   = 64
+batch_size   = 32
 input_shape  = (128, 128, 3)
 alpha        = 1e-5
 epoch        = 60
@@ -373,65 +368,77 @@ def predict_test(pred_inception, test_under_Y, folders, methodName):
 
 
 if __name__ == '__main__':
-    # 
-    for method in range(0, len(methodsNames)):
-        methodName = methodsNames[method]
+    #  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19
+    # 05 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100
+    for subset_idx in range(0, 20):
+        subset = subsets[subset_idx]
+  
+        save_metrics_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs\\"
+        save_csvs_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs\\"
+        save_nets_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\nets\\"
+        # base_path_parts = "C:\\PIBIC\\2022-2023\\Datasets\\05\\Partitions\\"
+        base_path_parts = f"C:\\PIBIC\\2022-2023\\Datasets\\{subset}\\Partitions"
 
-        if not os.path.exists(os.path.join(save_csvs_path, methodName)):
-            os.makedirs(os.path.join(save_csvs_path, methodName))
+        files_parts = os.listdir(base_path_parts)
 
-        for partition in range(1, 101): # Partição 1.csv -> 100.csv
-            partition = str(partition) 
-            for denseNum in [128]: # range(128,128, 128):
-                for dropOut in [0.1]: #0.2,0.3,0.4,0.5
-                    for freezePercentage in [0.3]: # 
-                        print(bcolors.OKGREEN + f"{methodName}: Partition {partition} DenseNum {denseNum}, dropout {dropOut}, freezePercentage {freezePercentage} " + bcolors.ENDC)
+        for method in range(0, len(methodsNames)):
+            methodName = methodsNames[method]
 
-                        log_dir = save_csvs_path + "/" + methodName + "/" + "log_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-                        tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+            if not os.path.exists(os.path.join(save_csvs_path, methodName)):
+                os.makedirs(os.path.join(save_csvs_path, methodName))
 
-                        csv_logger = tf.keras.callbacks.CSVLogger(os.path.join(save_csvs_path, methodName, "%0.2d-epoch-results.csv"%(int(partition))), separator=',', append=True)
-                    
+            for partition in range(1, 11): # Partição 1.csv -> 100.csv
+                partition = str(partition) 
+                for denseNum in [128]: # range(128,128, 128):
+                    for dropOut in [0.3]: #0.2,0.3,0.4,0.5
+                        for freezePercentage in [0.3]: # 
+                            print(bcolors.OKGREEN + f"{methodName}: Subset {subset} Partition {partition} DenseNum {denseNum}, dropout {dropOut}, freezePercentage {freezePercentage} " + bcolors.ENDC)
+
+                            log_dir = save_csvs_path + "/" + methodName + "/" + "log_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                            tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+
+                            csv_logger = tf.keras.callbacks.CSVLogger(os.path.join(save_csvs_path, methodName, "%0.2d-epoch-results.csv"%(int(partition))), separator=',', append=True)
                         
-                        initModel, checkpoint = makemodel(partition, methodName, denseNum, dropOut, freezePercentage)
-                        
-                        # train_under_X, train_under_Y, test_under_X, test_under_Y = laod_balance_class_parts(os.path.join(base_path_parts, partition))
-                        train_under_X, train_under_Y, test_under_X, test_under_Y = load_dataset(partition)
-                        
-                        print(bcolors.OKCYAN + "Trainning " + methodName + bcolors.ENDC)
-                        start_train = time.time()
-                        with tf.device('/device:GPU:0'):
-                            history_net = initModel.fit(train_under_X,
-                                                    train_under_Y,
-                                                    steps_per_epoch=(len(train_under_X) // batch_size),
-                                                    validation_steps = (len(test_under_X) // batch_size),
-                                                    batch_size = batch_size,
-                                                    epochs=epoch, 
-                                                    validation_data=(test_under_X, test_under_Y), 
-                                                    callbacks=[early, checkpoint, lr_reduce,csv_logger])
-                        
-                        runtimeTrain = time.time() - start_train
-                        print(bcolors.OKCYAN + methodName + " Trained in %2.2f seconds"%(runtimeTrain) + bcolors.ENDC)
-                        
+                            
+                            initModel, checkpoint = makemodel(partition, methodName, denseNum, dropOut, freezePercentage)
+                            
+                            # train_under_X, train_under_Y, test_under_X, test_under_Y = laod_balance_class_parts(os.path.join(base_path_parts, partition))
+                            train_under_X, train_under_Y, test_under_X, test_under_Y = load_dataset(partition)
+                            
+                            print(bcolors.OKCYAN + "Trainning " + methodName + bcolors.ENDC)
+                            start_train = time.time()
+                            with tf.device('/device:GPU:0'):
+                                history_net = initModel.fit(train_under_X,
+                                                        train_under_Y,
+                                                        steps_per_epoch=(len(train_under_X) // batch_size),
+                                                        validation_steps = (len(test_under_X) // batch_size),
+                                                        batch_size = batch_size,
+                                                        epochs=epoch, 
+                                                        validation_data=(test_under_X, test_under_Y), 
+                                                        callbacks=[early, checkpoint, lr_reduce,csv_logger])
+                            
+                            runtimeTrain = time.time() - start_train
+                            print(bcolors.OKCYAN + methodName + " Trained in %2.2f seconds"%(runtimeTrain) + bcolors.ENDC)
+                            
 
-                        dependencies = {
-                            'precision': precision,
-                            'recall': recall,
-                            'f1_score': f1_score,
-                            'specificity': specificity,
-                            'npv': npv,
-                            'mcc': mcc
-                        }
+                            dependencies = {
+                                'precision': precision,
+                                'recall': recall,
+                                'f1_score': f1_score,
+                                'specificity': specificity,
+                                'npv': npv,
+                                'mcc': mcc
+                            }
 
-                        print(bcolors.OKCYAN + "Testing " + methodName + bcolors.ENDC)
-                        # 
-                        fname = methodName + '/' +  methodName + '_weights' + partition + '.hdf5'
-                        filepath= os.path.join(save_nets_path, fname)
-                        model = load_model(filepath, custom_objects=dependencies)
-                        start_test = time.time()
-                        pred_inception = model.predict(test_under_X)
-                        runtimeTest = time.time() - start_test
-                        print(bcolors.OKCYAN + methodName + " Tested in %2.2f seconds"%(runtimeTest) + bcolors.ENDC)
-                    
-                        calculateMeasures(history_net, partition, methodName, denseNum, dropOut, freezePercentage, batch_size)
-                        # calculateMeasuresTest(history_net, step, methodName)
+                            print(bcolors.OKCYAN + "Testing " + methodName + bcolors.ENDC)
+                            # 
+                            fname = methodName + '/' +  methodName + '_weights' + partition + '.hdf5'
+                            filepath= os.path.join(save_nets_path, fname)
+                            model = load_model(filepath, custom_objects=dependencies)
+                            start_test = time.time()
+                            pred_inception = model.predict(test_under_X)
+                            runtimeTest = time.time() - start_test
+                            print(bcolors.OKCYAN + methodName + " Tested in %2.2f seconds"%(runtimeTest) + bcolors.ENDC)
+                        
+                            calculateMeasures(history_net, partition, methodName, denseNum, dropOut, freezePercentage, batch_size)
+                            # calculateMeasuresTest(history_net, step, methodName)
