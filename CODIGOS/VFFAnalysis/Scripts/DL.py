@@ -77,10 +77,10 @@ runtimeTest = 0.0
 # 'ResNet152V2':    Dense 128    Dropout 0.1  Freeze 0.3
 # 'DenseNet201':    Dense 128    Dropout 0.1  Freeze 0.3
 # 'MobileNetV2':    Dense 128    Dropout 0.1  Freeze 0.3
-methodsNames = ['MobileNet'] 
+methodsNames = ["ResNet50V2", "ResNet152V2", "MobileNetV2", "ResNet101V2"] 
 # 'VGG16', 'VGG19', 'ResNet50', 'ResNet50V2', 'ResNet101', 'ResNet101V2', 'ResNet152', 'ResNet152V2', 'DenseNet201', 'Xception', 'EfficientNetB4'
 
-# DONE: 'MobileNet'
+# DONE: 'DenseNet201', 'MobileNet' (1-10)
 
 ##Parametros da CNNs
 batch_size   = 32
@@ -375,7 +375,7 @@ if __name__ == '__main__':
   
         save_metrics_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs\\"
         save_csvs_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs\\"
-        save_nets_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\nets\\"
+        save_nets_path = f"D:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\nets\\"
         # base_path_parts = "C:\\PIBIC\\2022-2023\\Datasets\\05\\Partitions\\"
         base_path_parts = f"C:\\PIBIC\\2022-2023\\Datasets\\{subset}\\Partitions"
 
