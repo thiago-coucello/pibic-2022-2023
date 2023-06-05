@@ -387,7 +387,7 @@ if __name__ == '__main__':
             if not os.path.exists(os.path.join(save_csvs_path, methodName)):
                 os.makedirs(os.path.join(save_csvs_path, methodName))
 
-            for partition in range(1, 11): # Partição 1.csv -> 100.csv
+            for partition in range(12, 21): # Partição 1.csv -> 100.csv
                 partition = str(partition) 
                 for denseNum in [128]: # range(128,128, 128):
                     for dropOut in [0.3]: #0.2,0.3,0.4,0.5
