@@ -56,20 +56,25 @@ for subset in subsets: # 05 - 100
                 first_quartile, third_quartile = df[column].quantile([0.25, 0.75])
                 iqr = third_quartile - first_quartile
                 column_median = df[column].median()
+                column_mean = df[column].mean()
+
                 lower_whisker = 100 * (first_quartile - 1.5 * iqr)
                 upper_whisker = 100 * (third_quartile + 1.5 * iqr)
 
+                result_data[f"{column}_mean"] = 100 * column_mean
                 result_data[f"{column}_median"] = 100 * column_median
                 result_data[f"{column}_lower"] = 100 * first_quartile
                 result_data[f"{column}_upper"] = 100 * third_quartile
-                result_data[f"{column}_lower_whisker"] = 0 if lower_whisker < 0 else lower_whisker
-                result_data[f"{column}_upper_whisker"] = 100 if upper_whisker > 100 else upper_whisker
+                result_data[f"{column}_lower_whisker"] = lower_whisker
+                result_data[f"{column}_upper_whisker"] = upper_whisker
                 
+                """ 
                 # Formatando para gráfico de linhas
                 coordinates = ""
                 for (epoch, value) in zip(df["folder"], df[column]):
                     coordinates += f"({epoch}, {100 * value})"
                 result_data[f"{column}_coords"] = coordinates
+                 """
 
             result_temp_df = pd.DataFrame([result_data])
             result_df = pd.concat([result_df, result_temp_df], ignore_index = True)
