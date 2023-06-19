@@ -77,10 +77,11 @@ runtimeTest = 0.0
 # 'ResNet152V2':    Dense 128    Dropout 0.1  Freeze 0.3
 # 'DenseNet201':    Dense 128    Dropout 0.1  Freeze 0.3
 # 'MobileNetV2':    Dense 128    Dropout 0.1  Freeze 0.3
-methodsNames = ["VGG16", "VGG19", "ResNet50", "ResNet101"] 
+methodsNames = ["MobileNet", "ResNet101V2", "ResNet50V2", "ResNet152V2"] 
 # 'VGG16', 'VGG19', 'ResNet50', 'ResNet50V2', 'ResNet101', 'ResNet101V2', 'ResNet152', 'ResNet152V2', 'DenseNet201', 'Xception', 'EfficientNetB4'
 
-# DONE: 'DenseNet201', 'MobileNet' (1-10), 'ResNet101V2' (1-10), "ResNet50V2" (1-10), "ResNet152V2" (1-10), "MobileNetV2" (1-10)
+# DONE: 'DenseNet201', 'MobileNet' (1-10), 'ResNet101V2' (1-10), "ResNet50V2" (1-10), "ResNet152V2" (1-10), "MobileNetV2" (1-10), "VGG16" (1-20), "VGG19" (1-20), "ResNet50" (1-20),
+# "ResNet101" (1-20), "ResNet152" (1-10), "Xception" (1-10), "EfficientNetB4" (1-10), "InceptionV3" (1-10)
 
 ##Parametros da CNNs
 batch_size   = 32
@@ -387,7 +388,8 @@ if __name__ == '__main__':
             if not os.path.exists(os.path.join(save_csvs_path, methodName)):
                 os.makedirs(os.path.join(save_csvs_path, methodName))
 
-            for partition in range(12, 21): # Partição 1.csv -> 100.csv
+            # Min: 1 - Max: 101 (Partições de 1 a 100)
+            for partition in range(11, 21): # Partições de 11 a 20
                 partition = str(partition) 
                 for denseNum in [128]: # range(128,128, 128):
                     for dropOut in [0.3]: #0.2,0.3,0.4,0.5
