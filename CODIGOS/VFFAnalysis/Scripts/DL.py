@@ -77,10 +77,10 @@ runtimeTest = 0.0
 # 'ResNet152V2':    Dense 128    Dropout 0.1  Freeze 0.3
 # 'DenseNet201':    Dense 128    Dropout 0.1  Freeze 0.3
 # 'MobileNetV2':    Dense 128    Dropout 0.1  Freeze 0.3
-methodsNames = ["MobileNet", "ResNet101V2", "ResNet50V2", "ResNet152V2"] 
+methodsNames = ["MobileNetV2", "ResNet152", "Xception", "EfficientNetB4", "InceptionV3"] 
 # 'VGG16', 'VGG19', 'ResNet50', 'ResNet50V2', 'ResNet101', 'ResNet101V2', 'ResNet152', 'ResNet152V2', 'DenseNet201', 'Xception', 'EfficientNetB4'
 
-# DONE: 'DenseNet201', 'MobileNet' (1-10), 'ResNet101V2' (1-10), "ResNet50V2" (1-10), "ResNet152V2" (1-10), "MobileNetV2" (1-10), "VGG16" (1-20), "VGG19" (1-20), "ResNet50" (1-20),
+# DONE: 'DenseNet201', 'MobileNet' (1-20), 'ResNet101V2' (1-20), "ResNet50V2" (1-20), "ResNet152V2" (1-20), "MobileNetV2" (1-10), "VGG16" (1-20), "VGG19" (1-20), "ResNet50" (1-20),
 # "ResNet101" (1-20), "ResNet152" (1-10), "Xception" (1-10), "EfficientNetB4" (1-10), "InceptionV3" (1-10)
 
 ##Parametros da CNNs
@@ -371,7 +371,7 @@ def predict_test(pred_inception, test_under_Y, folders, methodName):
 if __name__ == '__main__':
     #  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19
     # 05 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100
-    for subset_idx in range(0, 20):
+    for subset_idx in range(17, 20):
         subset = subsets[subset_idx]
   
         save_metrics_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs\\"
