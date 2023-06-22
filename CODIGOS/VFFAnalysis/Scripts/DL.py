@@ -373,9 +373,9 @@ if __name__ == '__main__':
     for subset_idx in range(0, 20):
         subset = subsets[subset_idx]
   
-        save_metrics_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs\\"
-        save_csvs_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs\\"
-        save_nets_path = f"D:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\nets\\"
+        save_metrics_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs"
+        save_csvs_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs"
+        save_nets_path = f"D:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\nets"
         # base_path_parts = "C:\\PIBIC\\2022-2023\\Datasets\\05\\Partitions\\"
         base_path_parts = f"C:\\PIBIC\\2022-2023\\Datasets\\{subset}\\Partitions"
 
