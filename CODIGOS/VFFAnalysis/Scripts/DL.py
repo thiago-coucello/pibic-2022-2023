@@ -77,11 +77,11 @@ runtimeTest = 0.0
 # 'ResNet152V2':    Dense 128    Dropout 0.1  Freeze 0.3
 # 'DenseNet201':    Dense 128    Dropout 0.1  Freeze 0.3
 # 'MobileNetV2':    Dense 128    Dropout 0.1  Freeze 0.3
-methodsNames = ["MobileNetV2", "ResNet152", "Xception", "EfficientNetB4", "InceptionV3"] 
+methodsNames = ['MobileNet', 'ResNet101V2', 'ResNet50V2', 'ResNet152V2'] 
 # 'VGG16', 'VGG19', 'ResNet50', 'ResNet50V2', 'ResNet101', 'ResNet101V2', 'ResNet152', 'ResNet152V2', 'DenseNet201', 'Xception', 'EfficientNetB4'
 
-# DONE: 'DenseNet201', 'MobileNet' (1-20), 'ResNet101V2' (1-20), "ResNet50V2" (1-20), "ResNet152V2" (1-20), "MobileNetV2" (1-10), "VGG16" (1-20), "VGG19" (1-20), "ResNet50" (1-20),
-# "ResNet101" (1-20), "ResNet152" (1-10), "Xception" (1-10), "EfficientNetB4" (1-10), "InceptionV3" (1-10)
+# DONE: 'DenseNet201', 'MobileNet' (1-20), 'ResNet101V2' (1-20), "ResNet50V2" (1-20), "ResNet152V2" (1-20), "MobileNetV2" (1-20), "VGG16" (1-20), "VGG19" (1-20), "ResNet50" (1-20),
+# "ResNet101" (1-20), "ResNet152" (1-20), "Xception" (1-20), "EfficientNetB4" (1-20), "InceptionV3" (1-20)
 
 ##Parametros da CNNs
 batch_size   = 32
@@ -371,12 +371,12 @@ def predict_test(pred_inception, test_under_Y, folders, methodName):
 if __name__ == '__main__':
     #  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19
     # 05 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100
-    for subset_idx in range(17, 20):
+    for subset_idx in range(0, 20):
         subset = subsets[subset_idx]
   
-        save_metrics_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs"
-        save_csvs_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs"
-        save_nets_path = f"D:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\nets"
+        save_metrics_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs\\"
+        save_csvs_path = f"C:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\csvs\\"
+        save_nets_path = f"D:\\PIBIC\\2022-2023\\Results\\{subset}\\DL\\nets\\"
         # base_path_parts = "C:\\PIBIC\\2022-2023\\Datasets\\05\\Partitions\\"
         base_path_parts = f"C:\\PIBIC\\2022-2023\\Datasets\\{subset}\\Partitions"
 
@@ -389,7 +389,7 @@ if __name__ == '__main__':
                 os.makedirs(os.path.join(save_csvs_path, methodName))
 
             # Min: 1 - Max: 101 (Partições de 1 a 100)
-            for partition in range(11, 21): # Partições de 11 a 20
+            for partition in range(1, 21): # Partições de 1 a 20 (correção de resultados para esses 4 modelos)
                 partition = str(partition) 
                 for denseNum in [128]: # range(128,128, 128):
                     for dropOut in [0.3]: #0.2,0.3,0.4,0.5
