@@ -80,7 +80,8 @@ runtimeTest = 0.0
 methodsNames = ['MobileNet', 'ResNet101V2', 'ResNet50V2', 'ResNet152V2'] 
 # 'VGG16', 'VGG19', 'ResNet50', 'ResNet50V2', 'ResNet101', 'ResNet101V2', 'ResNet152', 'ResNet152V2', 'DenseNet201', 'Xception', 'EfficientNetB4'
 
-# DONE: 'DenseNet201', 'MobileNet' (1-20), 'ResNet101V2' (1-20), "ResNet50V2" (1-20), "ResNet152V2" (1-20), "MobileNetV2" (1-20), "VGG16" (1-20), "VGG19" (1-20), "ResNet50" (1-20),
+# DONE: 'DenseNet201', 'MobileNet' (1-20), 'ResNet101V2' (1-20), "ResNet50V2" (1-20), "ResNet152V2" (1-20), 
+# "MobileNetV2" (1-20), "VGG16" (1-20), "VGG19" (1-20), "ResNet50" (1-20),
 # "ResNet101" (1-20), "ResNet152" (1-20), "Xception" (1-20), "EfficientNetB4" (1-20), "InceptionV3" (1-20)
 
 ##Parametros da CNNs
@@ -389,7 +390,7 @@ if __name__ == '__main__':
                 os.makedirs(os.path.join(save_csvs_path, methodName))
 
             # Min: 1 - Max: 101 (Partições de 1 a 100)
-            for partition in range(1, 21): # Partições de 1 a 20 (correção de resultados para esses 4 modelos)
+            for partition in range(21, 31): # Partições de 21 a 30
                 partition = str(partition) 
                 for denseNum in [128]: # range(128,128, 128):
                     for dropOut in [0.3]: #0.2,0.3,0.4,0.5
