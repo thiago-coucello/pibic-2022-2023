@@ -77,10 +77,10 @@ runtimeTest = 0.0
 # 'ResNet152V2':    Dense 128    Dropout 0.1  Freeze 0.3
 # 'DenseNet201':    Dense 128    Dropout 0.1  Freeze 0.3
 # 'MobileNetV2':    Dense 128    Dropout 0.1  Freeze 0.3
-methodsNames = ['MobileNet', 'ResNet101V2', 'ResNet50V2', 'ResNet152V2'] 
+methodsNames = ['MobileNetV2', 'VGG16', 'VGG19', 'ResNet50'] 
 # 'VGG16', 'VGG19', 'ResNet50', 'ResNet50V2', 'ResNet101', 'ResNet101V2', 'ResNet152', 'ResNet152V2', 'DenseNet201', 'Xception', 'EfficientNetB4'
 
-# DONE: 'DenseNet201', 'MobileNet' (1-20), 'ResNet101V2' (1-20), "ResNet50V2" (1-20), "ResNet152V2" (1-20), 
+# DONE: 'DenseNet201', 'MobileNet' (1-30), 'ResNet101V2' (1-30), "ResNet50V2" (1-30), "ResNet152V2" (1-30), 
 # "MobileNetV2" (1-20), "VGG16" (1-20), "VGG19" (1-20), "ResNet50" (1-20),
 # "ResNet101" (1-20), "ResNet152" (1-20), "Xception" (1-20), "EfficientNetB4" (1-20), "InceptionV3" (1-20)
 
