@@ -179,18 +179,19 @@ for i = 1:length(percentages)
     croppedImageBoundary = croppedImageBoundaries{1};
     
     if (isequaln(subset, "90") || isequaln(subset, "60") || isequaln(subset, "30") || isequaln(subset, "10"))
-        
-        plotImage = Image;
-        plotImage(~Mask) = 255;
+    
+        alphaMap = Mask;
         
         figure('units','normalized','outerposition',[0 0 1 1]),
-        imshow(plotImage);
+        imshow(Image); title("Imagem");
         hold on;
         plot(imageBoundary(:, 2), imageBoundary(:, 1), 'r');
         plot(croppedImageBoundary(:, 2), croppedImageBoundary(:, 1), 'b');
         % legend("Contorno original", "Contorno reduzido");
         hold off;
         
+        saveas(
+
         %{
         subplot(1, 3, 2); imshow(croppedImage); title(strcat("Imagem Reduzida - ", subset));
         hold on;
