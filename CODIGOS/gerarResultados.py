@@ -56,12 +56,6 @@ for subset in subsets:  # 05 - 100
 
             df = pd.read_csv(csv_path)
 
-            """ 
-            if df["folder"].size < 100:
-                # Não processou direito o subconjunto
-                continue
-            """
-
             runtime = df["runtime"].cumsum().iloc[-1]
             val_runtime = df["val_runtime"].cumsum().iloc[-1]
             total_runtime = runtime + val_runtime
@@ -98,34 +92,3 @@ for subset in subsets:  # 05 - 100
             result_df = result_df.sort_values(by=["subset"])
             # result_df: pd.DataFrame = result_df.append(result_data, ignore_index = True)
             result_df.to_csv(output_file, index=None)
-
-
-# Reiterando todos os resultados dos modelos para gerar o gráfico de linha
-
-""" 
-# TRECHO PARA GERAR PLOTS (NÃO DEVE ESTAR FUNCIONANDO)
-
-print(models)
-for model in models:
-    for column in COLUMNS:
-        coordinates = ""
-        for sub in SUBSETS:
-            # Monta o nome do arquivo de resultados do modelo (model) e subconjunto (sub)
-            model_metrics = os.path.join(RESULTS_PATH, f"results_{model}.csv")
-            
-            # Se o arquivo existe processa e gera gráfico de linha
-            if os.path.exists(model_metrics):
-                model_metrics_df = pd.read_csv(model_metrics)
-                data = model_metrics_df[f"{column}_mean"][0]
-                coordinates += f"\t({sub}, {data})\n"
-        
-        # Criando pasta de métricas para organização
-        if not os.path.isdir(os.path.join(RESULTS_PATH, "Metrics")):
-            os.mkdir(os.path.join(RESULTS_PATH, "Metrics"))
-        
-        metrics_file = os.path.join(RESULTS_PATH, "Metrics", f"{model}_{column}.txt")
-        coordinates_output = f"%{model}\n\\addplot coordinates {'{'}\n{coordinates}{'};'}\n"
-
-        with open(metrics_file, "w") as metrics_output:
-            metrics_output.write(coordinates_output)   
-"""
