@@ -187,7 +187,7 @@ for i = 1:length(percentages)
         imshow(plotImage);
         hold on;
         plot(imageBoundary(:, 2), imageBoundary(:, 1), 'r');
-        plot(croppedImageBoundary(:, 2), croppedImageBoundary(:, 1), 'b');
+        plot(croppedImageBoundary(:, 2), croppedImageBoundary(:, 1), 'c');
         % legend("Contorno original", "Contorno reduzido");
         hold off;
         
