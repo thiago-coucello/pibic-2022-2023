@@ -61,17 +61,27 @@ COLUMNS = [
  """
 
 COLUMNS = [
-    "auc",
-    "val_auc"
+    "val_accuracy_mean",
+    "val_precision_mean",
+    "val_sensitivity_mean",
+    "val_specificity_mean",
+    "val_f1_score_mean",
+    "val_auc_mean",
+    "runtime",
+    "val_runtime",
+    "total_runtime"
 ]
 
-train_dict = {}
-val_dict = {}
+ORDER_BY_COLUMNS = [c.replace("_mean", "")
+                    for c in COLUMNS if not c.endswith("runtime")]
+
+df = pd.DataFrame(columns=ORDER_BY_COLUMNS)
 
 # TRECHO PARA GERAR PLOTS POR MODELOS
 for model in MODELS:
     # Monta o nome do arquivo de resultados do modelo (model) e subconjunto (sub)
     model_metrics = os.path.join(RESULTS_PATH, f"results_{model}.csv")
+    val_dict = {}
 
     # Criando pasta de métricas para organização
     if not os.path.isdir(os.path.join(RESULTS_PATH, "Metrics")):
@@ -90,26 +100,30 @@ for model in MODELS:
 
         if os.path.exists(model_metrics):
             model_metrics_df = pd.read_csv(model_metrics)
-            auc_mean = model_metrics_df["auc_mean"].mean()
-            val_auc_mean = model_metrics_df["val_auc_mean"].mean()
+            metric_mean = model_metrics_df[column].mean()
 
-            train_dict[model] = auc_mean
-            val_dict[model] = val_auc_mean
+            val_dict["model"] = model
+            val_dict[column.replace("_mean", "")] = metric_mean
 
             for index, row in model_metrics_df.iterrows():
                 subset = int(row["subset"])
-                data = row[f"{column}_mean"]
+                data = row[column]
                 coordinates += f"{subset/100} {data}\n"
 
             # coordinates_output = f"%{model} - {column}\n\\addplot coordinates {'{'}\n{coordinates}{'};'}\n"
             # output.write(coordinates_output)
             output.write(f"{column}\n{coordinates}")
 
+    temp = pd.DataFrame([val_dict])
+    df = pd.concat([df, temp])
     output.close()
 
-sorted_train_dict = sorted(train_dict.items(), key=lambda x: x[1])
-sorted_val_dict = sorted(val_dict.items(), key=lambda x: x[1])
+sorted_df = df.sort_values(
+    by=ORDER_BY_COLUMNS)
 
-print("Sorted train:", sorted_train_dict)
-print()
-print("Sorted val:", sorted_val_dict)
+sorted_df.set_index("model")
+
+order_file = os.path.join(
+    RESULTS_PATH, "Metrics", f"order.csv")
+
+sorted_df.to_csv(order_file, index=False)

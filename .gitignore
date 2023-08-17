@@ -1,4 +1,12 @@
-Datasets
+!Datasets
+
+Datasets/*
+!Datasets/100
+!Datasets/50
+
+CODIGOS/BaseVFF
+!CODIGOS/BaseVFF/generateDatasets.m
+
 Partitions
 nets
 DenseNet201
@@ -8,3 +16,6 @@ Partitions.zip
 CITATION.CFF
 log.txt
 *.pptx
+
+comprovante_submissao_cic.pdf
+presentation.pdf

@@ -56,15 +56,17 @@ for subset in subsets:  # 05 - 100
 
             df = pd.read_csv(csv_path)
 
-            runtime = df["runtime"].cumsum().iloc[-1]
-            val_runtime = df["val_runtime"].cumsum().iloc[-1]
+            runtime = df["runtime"].mean()
+            val_runtime = df["val_runtime"].mean()
             total_runtime = runtime + val_runtime
             result_data = {"subset": int(subset), "strategy": strategy, "model": model,
                            "runtime": runtime, "val_runtime": val_runtime, "total_runtime": total_runtime}
 
             for column in COLUMNS:
                 first_quartile, third_quartile = df[column].quantile([
-                                                                     0.25, 0.75])
+                    0.25, 0.75
+                ])
+
                 iqr = third_quartile - first_quartile
                 column_median = df[column].median()
                 column_mean = df[column].mean()
