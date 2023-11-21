@@ -3,7 +3,7 @@
  
 Repositório que armazena os códigos, resultados e parte do dataset utilizado no decorrer do projeto. 
 
-Apenas parte do dataset está disponível devido ao tamanho total dos arquivos. Portanto foi optado por compartilhar os datasets para 50% e 100% das regiões de interesse.
+Para obtenção do dataset entrar em contato com os autores, já que a base de imagens foi montada no decorrer do trabalho de vários mestrandos e doutorandos da USP.
 
 ## OBJETIVOS
 
